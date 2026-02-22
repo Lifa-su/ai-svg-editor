@@ -47,6 +47,28 @@ header h1{font-size:16px;font-weight:600;background:linear-gradient(135deg,var(-
 .btn-secondary{background:var(--surface2);color:var(--text)}
 .btn-secondary:hover{background:var(--border)}
 @media(max-width:768px){.sidebar{width:200px}}
+.pro-section{border-top:1px solid var(--border);position:relative;cursor:pointer;overflow:hidden}
+.pro-content{padding:12px;filter:blur(3px);pointer-events:none;user-select:none}
+.pro-content h4{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:8px}
+.pro-preview-item{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:8px 10px;margin-bottom:6px;font-size:11px;color:var(--text2);display:flex;align-items:center;gap:6px}
+.pro-preview-item span.icon{font-size:14px}
+.pro-overlay{position:absolute;inset:0;background:rgba(13,13,26,.75);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;z-index:5}
+.pro-overlay .lock{font-size:24px}
+.pro-overlay .unlock-text{font-size:11px;font-weight:600;color:var(--text);letter-spacing:.5px}
+.pro-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;z-index:2000;opacity:0;pointer-events:none;transition:opacity .25s ease}
+.pro-modal-overlay.show{opacity:1;pointer-events:auto}
+.pro-modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 32px;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.5);transform:translateY(12px);transition:transform .25s ease}
+.pro-modal-overlay.show .pro-modal{transform:translateY(0)}
+.pro-modal h2{font-size:20px;margin-bottom:4px;text-align:center}
+.pro-modal .price{text-align:center;margin:12px 0 16px;font-size:14px;color:var(--text2)}
+.pro-modal .price strong{font-size:32px;color:var(--text);font-weight:700}
+.pro-modal ul{list-style:none;padding:0;margin:0 0 20px}
+.pro-modal ul li{padding:6px 0;font-size:13px;color:var(--text);border-bottom:1px solid var(--border)}
+.pro-modal ul li:last-child{border-bottom:none}
+.pro-modal .btn-pro{display:block;width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;transition:opacity .2s}
+.pro-modal .btn-pro:hover{opacity:.85}
+.pro-modal .btn-later{display:block;width:100%;padding:10px;background:transparent;border:none;color:var(--text2);font-size:13px;cursor:pointer;margin-top:8px;text-align:center}
+.pro-modal .btn-later:hover{color:var(--text)}
 </style>
 </head>
 <body>
@@ -89,6 +111,17 @@ header h1{font-size:16px;font-weight:600;background:linear-gradient(135deg,var(-
 <button id="layerDel" title="Delete">&#10005; Del</button>
 <button id="layerVis" title="Toggle Visibility">&#128065; Vis</button>
 </div>
+<div class="pro-section" onclick="showProModal()">
+<div class="pro-content">
+<h4>Pro Features</h4>
+<div class="pro-preview-item"><span class="icon">⚡</span> Batch SVG Optimization (SVGO)</div>
+<div class="pro-preview-item"><span class="icon">🎬</span> Animation Timeline Editor</div>
+</div>
+<div class="pro-overlay">
+<span class="lock">🔒</span>
+<span class="unlock-text">Unlock Pro Features</span>
+</div>
+</div>
 </div>
 <div class="canvas-wrap" id="canvasWrap">
 <svg id="canvas" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -109,6 +142,22 @@ header h1{font-size:16px;font-weight:600;background:linear-gradient(135deg,var(-
 <button class="btn-secondary" id="exportCopy">&#128203; Copy</button>
 <button class="btn-primary" id="exportDownload">&#11015; Download</button>
 </div>
+</div>
+</div>
+<div class="pro-modal-overlay" id="proModal" onclick="if(event.target===this)closeProModal()">
+<div class="pro-modal">
+<h2>🚀 Upgrade to Pro</h2>
+<div class="price"><strong>$14</strong><br>one-time payment</div>
+<ul>
+<li>✅ Batch SVG Optimization (SVGO)</li>
+<li>✅ Animation Timeline Editor</li>
+<li>✅ CSS/SMIL Animation Support</li>
+<li>✅ SVG Sprite Generator</li>
+<li>✅ Path Simplification &amp; Cleanup</li>
+<li>✅ Lifetime Access</li>
+</ul>
+<a href="https://feifeicch.gumroad.com/l/ai-svg-editor" target="_blank" class="btn-pro">Upgrade to Pro — $14</a>
+<button class="btn-later" onclick="closeProModal()">Maybe later</button>
 </div>
 </div>
 <script>
@@ -738,6 +787,10 @@ document.addEventListener('keydown', function(e) {
 window.addEventListener('resize', function() { updateVB(); renderAll(); });
 updateVB();
 renderAll();
+
+// Pro Modal
+function showProModal() { document.getElementById('proModal').classList.add('show'); }
+function closeProModal() { document.getElementById('proModal').classList.remove('show'); }
 </script>
 <script src="https://alwingulla.com/88/tag.min.js" data-zone="130647" async data-cfasync="false"></script>
 </body>
